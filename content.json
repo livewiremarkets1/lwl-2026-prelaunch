@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "hero": true,
+    "about": true,
+    "speakers": true,
+    "pastHighlights": true,
+    "register": true,
+    "partners": true
+  },
+  "hero": {
+    "eyebrow": "The 10th annual",
+    "date": "22 September 2026",
+    "location": "Art Gallery of New South Wales, Sydney, Australia",
+    "countdown": "2026-09-22T09:00:00+10:00",
+    "ctaPrimary": "Register Interest",
+    "ctaSecondary": "Watch 2025 Highlights"
+  },
+  "about": {
+    "tagline": "One Room. One Day.<br><span class=\"gold\">The Minds That<br>Move Markets.</span>",
+    "description": "Livewire Live returns for its milestone 10th edition. Australia's most anticipated investment event brings together the country's best fund managers, strategists, and market thinkers for a full day of high-signal keynotes, live debates, and unscripted conversations you won't find anywhere else.",
+    "stats": [
+      { "num": "400+", "label": "Attendees" },
+      { "num": "17", "label": "Speakers" },
+      { "num": "10", "label": "Years Running" },
+      { "num": "1", "label": "Unmissable Day" }
+    ]
+  },
+  "speakers": {
+    "mode": "tba",
+    "tbaHeadline": "Speakers Announcing<br><span class=\"gold\">Very Soon</span>",
+    "tbaSubtext": "Australia's most respected fund managers and market leaders — live on stage, unfiltered and unscripted. The full lineup drops soon. Register below to be first to know.",
+    "gridHeadline": "This Year's <span class=\"gold\">Speakers</span>",
+    "items": []
+  },
+  "highlights": {
+    "headline": "Voices That Shaped<br><span class=\"gold\">Our Thinking</span>",
+    "subtitle": "For over a decade, Livewire Live has brought together the most respected names in funds management — delivering the sharpest insights, boldest calls, and most actionable ideas to Australia's leading investors.",
+    "floating": [
+      { "label": "Jeremy Grantham", "videoId": "mSu43XNcPmg", "image": "brand_assets/LWL-highlights-jeremy grantham.jpg" },
+      { "label": "Qiao Ma", "videoId": "G6mCsgtMx7k", "image": "brand_assets/LWL-highlights-qiao-ma.jpg" },
+      { "label": "Anne Milne", "videoId": "Qx9EUiieBmo", "image": "brand_assets/LWL-highlights-anne-milne.jpg" },
+      { "label": "Victor Shvets", "videoId": "XtEqBCHmtMY", "image": "brand_assets/LWL-highlights-victor-shvets.jpg" },
+      { "label": "Dr. David Allen", "videoId": "YY_ncvzGWgI", "image": "brand_assets/LWL-highlights-david-allen.jpg" },
+      { "label": "2025 Panel", "videoId": "tYPwu8x1YMM", "image": "brand_assets/LWL-highlights-panel-high-conviction.jpg" },
+      { "label": "Chris Joye", "videoId": "fR0A5HMFyFI", "image": "brand_assets/LWL-highlights-chris-joye.jpg" }
+    ],
+    "videos": [
+      { "videoId": "3C2D2s02lOw", "label": "Livewire Live 2025 Highlights" },
+      { "videoId": "kcSdgfvGvPY", "label": "Video 2" },
+      { "videoId": "ID5indpKcFA", "label": "Video 3" },
+      { "videoId": "lRZgqQM3O9I", "label": "Video 4" }
+    ]
+  },
+  "register": {
+    "eyebrow": "22 September 2026 — Sydney",
+    "headline": "Be First to<br><span class=\"gold\">Know &amp; Register</span>",
+    "subtext": "Tickets aren't on sale yet — but they will be soon, and they go fast. Drop your email below to be the first notified when tickets open, and get early access to speaker announcements."
+  },
+  "partners": {
+    "supportingPartnersVisible": false,
+    "supportingPartners": [],
+    "ctaTitle": "Put Your Brand at the Centre of <span class=\"gold\">Australian Investing</span>",
+    "ctaSub": "Reach some of Australia's most influential investors, advisers, and fund managers in a single day.",
+    "ctaEmail": "partnerships@livewiremarkets.com"
+  }
+}

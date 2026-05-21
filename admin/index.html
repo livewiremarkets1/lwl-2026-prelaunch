@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LWL Admin — Livewire Live 2026</title>
+  <style>
+    :root {
+      --bg: #0D1117;
+      --sidebar: #161B22;
+      --surface: #1C2130;
+      --border: #2D3444;
+      --accent: #FFD43B;
+      --accent-dk: #C9A227;
+      --text: #CDD9E5;
+      --dim: #768390;
+      --danger: #E05252;
+      --success: #3FB950;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.5; }
+
+    /* ── LOGIN ── */
+    #login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; padding: 24px; }
+    .login-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; width: 100%; max-width: 440px; }
+    .login-logo { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .login-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .login-sub { color: var(--dim); font-size: 13px; margin-bottom: 28px; }
+    .setup-box { max-width: 440px; width: 100%; }
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; }
+    summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--dim); list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: '▶ '; font-size: 10px; }
+    details[open] summary::before { content: '▼ '; }
+    details ol { margin-top: 14px; padding-left: 18px; color: var(--dim); font-size: 13px; line-height: 2.2; }
+    details ol strong { color: var(--text); }
+    details ol code { color: var(--accent); font-size: 12px; font-family: monospace; }
+
+    /* ── FORM ELEMENTS ── */
+    label { display: block; font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 6px; }
+    input[type="text"], input[type="password"], input[type="email"], input[type="url"], textarea, select {
+      width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      padding: 9px 12px; color: var(--text); font-family: var(--font); font-size: 14px; outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+    input[type="file"] { color: var(--dim); font-size: 13px; padding: 6px 0; }
+    .field { margin-bottom: 18px; }
+    .field:last-child { margin-bottom: 0; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-row .field { margin-bottom: 0; }
+
+    /* ── BUTTONS ── */
+    .btn { border: none; border-radius: 6px; padding: 9px 18px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, opacity 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-gold { background: var(--accent); color: #000; }
+    .btn-gold:hover { background: var(--accent-dk); }
+    .btn-gold:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--dim); }
+    .btn-danger { background: transparent; color: var(--danger); border: 1px solid rgba(224,82,82,0.4); font-size: 12px; padding: 6px 12px; }
+    .btn-danger:hover { background: rgba(224,82,82,0.08); }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+    /* ── DASHBOARD ── */
+    #dashboard { display: none; height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .layout { display: flex; height: 100%; }
+    #sidebar { width: 232px; min-width: 232px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+    .sb-head { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); }
+    .sb-logo { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+    .sb-sub { font-size: 11px; color: var(--dim); margin-top: 2px; }
+    .sb-nav { flex: 1; padding: 10px 0; }
+    .nav-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 20px; cursor: pointer; border-left: 3px solid transparent; transition: background 0.12s, border-color 0.12s; user-select: none; }
+    .nav-item:hover { background: rgba(255,255,255,0.04); }
+    .nav-item.active { background: rgba(255,212,59,0.07); border-left-color: var(--accent); }
+    .nav-item-label { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 9px; }
+    .nav-icon { width: 15px; height: 15px; opacity: 0.45; flex-shrink: 0; }
+    .sb-foot { padding: 14px 18px; border-top: 1px solid var(--border); }
+    .save-btn { width: 100%; background: var(--accent); color: #000; border: none; border-radius: 8px; padding: 11px; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 8px; transition: background 0.15s, opacity 0.15s; }
+    .save-btn:hover { background: var(--accent-dk); }
+    .save-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .save-status { font-size: 12px; text-align: center; min-height: 18px; margin-bottom: 6px; }
+    .status-ok { color: var(--success); }
+    .status-err { color: var(--danger); }
+    .sb-links { display: flex; justify-content: space-between; margin-top: 6px; }
+    .sb-link { background: none; border: none; color: var(--dim); font-size: 11px; cursor: pointer; text-decoration: none; }
+    .sb-link:hover { color: var(--text); }
+
+    /* ── TOGGLE ── */
+    .toggle { position: relative; width: 32px; height: 18px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-track { position: absolute; inset: 0; background: var(--border); border-radius: 9px; cursor: pointer; transition: background 0.2s; }
+    .toggle-track::before { content: ''; position: absolute; width: 12px; height: 12px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform 0.2s; }
+    .toggle input:checked + .toggle-track { background: var(--accent); }
+    .toggle input:checked + .toggle-track::before { transform: translateX(14px); }
+
+    /* ── MAIN AREA ── */
+    #main { flex: 1; overflow-y: auto; padding: 36px 40px; }
+    .panel { display: none; max-width: 700px; }
+    .panel.active { display: block; }
+    .panel-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .panel-sub { font-size: 13px; color: var(--dim); margin-bottom: 28px; line-height: 1.6; }
+
+    /* ── CARDS ── */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px; margin-bottom: 16px; }
+    .card-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--dim); margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; }
+    .card-title span { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--dim); opacity: 0.7; font-size: 11px; }
+
+    /* ── OVERVIEW GRID ── */
+    .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .ov-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+    .ov-card-title { font-size: 14px; font-weight: 600; color: #fff; }
+    .ov-card-sub { font-size: 12px; color: var(--dim); margin-top: 2px; }
+    .tip { background: rgba(255,212,59,0.07); border: 1px solid rgba(255,212,59,0.2); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--accent); margin-top: 18px; line-height: 1.6; }
+
+    /* ── MODE SELECTOR ── */
+    .mode-row { display: flex; gap: 8px; margin-bottom: 18px; }
+    .mode-btn { flex: 1; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--dim); cursor: pointer; text-align: center; font-size: 13px; font-weight: 600; transition: border-color 0.15s, color 0.15s; }
+    .mode-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(255,212,59,0.05); }
+
+    /* ── SPEAKER CARDS ── */
+    .speaker-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+    .speaker-item-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .speaker-avatar { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--border); flex-shrink: 0; border: 1px solid var(--border); }
+    .speaker-meta { flex: 1; }
+    .speaker-name-preview { font-weight: 700; font-size: 14px; color: #fff; }
+    .speaker-role-preview { font-size: 12px; color: var(--dim); }
+    .upload-status { font-size: 12px; margin-top: 5px; color: var(--dim); }
+
+    /* ── HIGHLIGHT ITEMS ── */
+    .hl-item { display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: center; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; }
+    .hl-thumb { width: 80px; height: 52px; border-radius: 4px; object-fit: cover; background: var(--border); flex-shrink: 0; }
+    .hl-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .hl-fields label { margin-bottom: 4px; }
+    .hl-fields input { padding: 6px 8px; font-size: 12px; }
+
+    /* ── PARTNER ITEMS ── */
+    .partner-item { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: end; margin-bottom: 10px; }
+
+    /* ── EMPTY STATES ── */
+    .empty { text-align: center; padding: 28px; color: var(--dim); font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ LOGIN ═══════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Livewire Live 2026</div>
+    <h1 class="login-title">Site Admin</h1>
+    <p class="login-sub">Sign in with your GitHub personal access token to manage content.</p>
+    <form id="login-form">
+      <div class="field">
+        <label for="tok">GitHub Personal Access Token</label>
+        <input type="password" id="tok" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" required autocomplete="off">
+      </div>
+      <button type="submit" class="btn btn-gold" style="width:100%;" id="login-btn">Sign In</button>
+      <p id="login-err" style="color:var(--danger);font-size:12px;margin-top:10px;display:none;"></p>
+    </form>
+  </div>
+  <div class="setup-box">
+    <details>
+      <summary>How to get a GitHub token</summary>
+      <ol>
+        <li>Go to <strong>github.com → Settings → Developer Settings</strong></li>
+        <li>Click <strong>Personal access tokens → Fine-grained tokens</strong></li>
+        <li>Click <strong>Generate new token</strong></li>
+        <li>Under <strong>Repository access</strong> choose <code>livewiremarkets1/lwl-2026-prelaunch</code></li>
+        <li>Under <strong>Permissions → Repository permissions → Contents</strong> choose <strong>Read and write</strong></li>
+        <li>Generate and paste the token above</li>
+      </ol>
+    </details>
+  </div>
+</div>
+
+<!-- ═══════════ DASHBOARD ═══════════ -->
+<div id="dashboard">
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div class="sb-head">
+        <div class="sb-logo">LWL Admin</div>
+        <div class="sb-sub">Livewire Live 2026</div>
+      </div>
+
+      <nav class="sb-nav">
+        <div class="nav-item active" data-panel="overview">
+          <span class="nav-item-label">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M1 1h6v6H1zm8 0h6v6H9zM1 9h6v6H1zm8 0h6v6H9z"/></svg>
+            Overview
+          </span>
+        </div>
+        <div class="nav-item" data-panel="hero">
+          <span class="nav-item-label">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="14" height="14" rx="2"/><path d="M4 8h8M4 5h5"/></svg>
+            Hero
+          </span>
+          <label class="toggle"><input type="checkbox" id="t-hero" checked><span class="toggle-track"></span></label>
+        </div>
+        <div class="nav-item" data-panel="about">
+          <span class="nav-item-label">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.5h.01"/></svg>
+            About
+          </span>
+          <label class="toggle"><input type="checkbox" id="t-about" checked><span class="toggle-track"></span></label>
+        </div>
+        <div class="nav-item" data-panel="speakers">
+          <span class="nav-item-label">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5.5" cy="5" r="2.5"/><path d="M1 13c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4"/><circle cx="12" cy="5" r="2"/><path d="M12 9.5c1.5 0 3 .8 3 3"/></svg>
+            Speakers
+          </span>
+          <label class="toggle"><input type="checkbox" id="t-speakers" checked><span class="toggle-track"></span></label>
+        </div>
+        <div class="nav-item" data-panel="highlights">
+          <span class="nav-item-label">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="2"/><path d="M6 6l5 3-5 3V6z" fill="currentColor" stroke="none"/></svg>
+            Past Highlights
+          </span>
+          <label class="toggle"><input type="checkbox" id="t-pastHighlights" checked><span class="toggle-track"></span></label>
+        </div>
+        <div class="nav-item" data-panel="register">
+          <span class="nav-item-label">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12v10H2zM5 4V2h6v2M6 8h4M8 6v4"/></svg>
+            Register
+          </span>
+          <label class="toggle"><input type="checkbox" id="t-register" checked><span class="toggle-track"></span></label>
+        </div>
+        <div class="nav-item" data-panel="partners">
+          <span class="nav-item-label">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8l6-6 6 6M3 7.5V14h4v-4h2v4h4V7.5"/></svg>
+            Partners
+          </span>
+          <label class="toggle"><input type="checkbox" id="t-partners" checked><span class="toggle-track"></span></label>
+        </div>
+      </nav>
+
+      <div class="sb-foot">
+        <button class="save-btn" id="save-btn" onclick="saveAndPublish()">Save &amp; Publish</button>
+        <div class="save-status" id="save-status"></div>
+        <div class="sb-links">
+          <a class="sb-link" href="https://livewiremarkets1.github.io/lwl-2026-prelaunch/" target="_blank" rel="noopener">View live site ↗</a>
+          <button class="sb-link" onclick="logout()">Sign out</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main id="main">
+
+      <!-- OVERVIEW -->
+      <div class="panel active" id="panel-overview">
+        <h2 class="panel-title">Site Overview</h2>
+        <p class="panel-sub">Toggle sections on or off. Click <strong>Save &amp; Publish</strong> when ready — changes go live within ~60 seconds.</p>
+        <div class="overview-grid">
+          <div class="ov-card">
+            <div><div class="ov-card-title">Hero</div><div class="ov-card-sub">Banner, date &amp; countdown</div></div>
+            <label class="toggle"><input type="checkbox" id="ov-hero" checked onchange="syncToggle('hero',this.checked)"><span class="toggle-track"></span></label>
+          </div>
+          <div class="ov-card">
+            <div><div class="ov-card-title">About</div><div class="ov-card-sub">Description &amp; stats</div></div>
+            <label class="toggle"><input type="checkbox" id="ov-about" checked onchange="syncToggle('about',this.checked)"><span class="toggle-track"></span></label>
+          </div>
+          <div class="ov-card">
+            <div><div class="ov-card-title">Speakers</div><div class="ov-card-sub">TBA placeholder or live grid</div></div>
+            <label class="toggle"><input type="checkbox" id="ov-speakers" checked onchange="syncToggle('speakers',this.checked)"><span class="toggle-track"></span></label>
+          </div>
+          <div class="ov-card">
+            <div><div class="ov-card-title">Past Highlights</div><div class="ov-card-sub">Video clips &amp; reel</div></div>
+            <label class="toggle"><input type="checkbox" id="ov-pastHighlights" checked onchange="syncToggle('pastHighlights',this.checked)"><span class="toggle-track"></span></label>
+          </div>
+          <div class="ov-card">
+            <div><div class="ov-card-title">Register</div><div class="ov-card-sub">Email capture form</div></div>
+            <label class="toggle"><input type="checkbox" id="ov-register" checked onchange="syncToggle('register',this.checked)"><span class="toggle-track"></span></label>
+          </div>
+          <div class="ov-card">
+            <div><div class="ov-card-title">Partners</div><div class="ov-card-sub">Sponsors section</div></div>
+            <label class="toggle"><input type="checkbox" id="ov-partners" checked onchange="syncToggle('partners',this.checked)"><span class="toggle-track"></span></label>
+          </div>
+        </div>
+        <div class="tip">Changes here mirror the toggles in the sidebar — they're the same setting. Hit <strong>Save &amp; Publish</strong> when done.</div>
+      </div>
+
+      <!-- HERO -->
+      <div class="panel" id="panel-hero">
+        <h2 class="panel-title">Hero Section</h2>
+        <p class="panel-sub">The main banner at the top of the page.</p>
+        <div class="card">
+          <div class="card-title">Event Details</div>
+          <div class="field"><label>Eyebrow text</label><input type="text" id="f-hero-eyebrow"></div>
+          <div class="field-row">
+            <div class="field"><label>Event Date</label><input type="text" id="f-hero-date" placeholder="22 September 2026"></div>
+            <div class="field"><label>Countdown Target (ISO date)</label><input type="text" id="f-hero-countdown" placeholder="2026-09-22T09:00:00+10:00"></div>
+          </div>
+          <div class="field"><label>Location text</label><input type="text" id="f-hero-location"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">CTA Buttons</div>
+          <div class="field-row">
+            <div class="field"><label>Primary button label</label><input type="text" id="f-hero-cta-primary"></div>
+            <div class="field"><label>Secondary button label</label><input type="text" id="f-hero-cta-secondary"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="panel" id="panel-about">
+        <h2 class="panel-title">About Section</h2>
+        <p class="panel-sub">Event description and key statistics.</p>
+        <div class="card">
+          <div class="card-title">Copy <span>HTML supported — use &lt;br&gt; for line breaks, &lt;span class="gold"&gt; for gold text</span></div>
+          <div class="field"><label>Tagline</label><textarea id="f-about-tagline" rows="3"></textarea></div>
+          <div class="field"><label>Description</label><textarea id="f-about-description" rows="4"></textarea></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Statistics</div>
+          <div id="stats-list"></div>
+        </div>
+      </div>
+
+      <!-- SPEAKERS -->
+      <div class="panel" id="panel-speakers">
+        <h2 class="panel-title">Speakers</h2>
+        <p class="panel-sub">Switch between a "Coming Soon" placeholder and a live speaker grid.</p>
+        <div class="card">
+          <div class="card-title">Mode</div>
+          <div class="mode-row">
+            <div class="mode-btn active" id="mode-tba" onclick="setSpeakerMode('tba')">Coming Soon (TBA)</div>
+            <div class="mode-btn" id="mode-grid" onclick="setSpeakerMode('grid')">Speaker Grid</div>
+          </div>
+          <div id="tba-fields">
+            <div class="field"><label>Headline <span style="font-weight:400;font-size:11px;">(HTML supported)</span></label><input type="text" id="f-sp-tba-headline"></div>
+            <div class="field"><label>Subtext</label><textarea id="f-sp-tba-subtext" rows="3"></textarea></div>
+          </div>
+          <div id="grid-fields" style="display:none;">
+            <div class="field"><label>Section headline <span style="font-weight:400;font-size:11px;">(HTML supported)</span></label><input type="text" id="f-sp-grid-headline"></div>
+          </div>
+        </div>
+        <div id="speaker-grid-card" class="card" style="display:none;">
+          <div class="card-title">Speaker Cards <button class="btn btn-ghost btn-sm" onclick="addSpeaker()" style="font-weight:600;">+ Add Speaker</button></div>
+          <div id="speaker-list"></div>
+        </div>
+      </div>
+
+      <!-- HIGHLIGHTS -->
+      <div class="panel" id="panel-highlights">
+        <h2 class="panel-title">Past Highlights</h2>
+        <p class="panel-sub">Manage the floating speaker cards and the video grid.</p>
+        <div class="card">
+          <div class="card-title">Section Copy</div>
+          <div class="field"><label>Headline <span style="font-weight:400;font-size:11px;">(HTML supported)</span></label><input type="text" id="f-hl-headline"></div>
+          <div class="field"><label>Subtitle</label><textarea id="f-hl-subtitle" rows="3"></textarea></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Floating Speaker Cards <span>Edit the label and YouTube video ID for each</span></div>
+          <div id="floating-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Video Grid <span>Enter YouTube video IDs (e.g. 3C2D2s02lOw)</span></div>
+          <div id="video-list"></div>
+        </div>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="panel" id="panel-register">
+        <h2 class="panel-title">Register Section</h2>
+        <p class="panel-sub">The email capture form and its copy.</p>
+        <div class="card">
+          <div class="card-title">Copy <span>HTML supported — use &lt;span class="gold"&gt; for gold text</span></div>
+          <div class="field"><label>Eyebrow</label><input type="text" id="f-reg-eyebrow"></div>
+          <div class="field"><label>Headline</label><input type="text" id="f-reg-headline"></div>
+          <div class="field"><label>Subtext</label><textarea id="f-reg-subtext" rows="3"></textarea></div>
+        </div>
+      </div>
+
+      <!-- PARTNERS -->
+      <div class="panel" id="panel-partners">
+        <h2 class="panel-title">Partners &amp; Sponsors</h2>
+        <p class="panel-sub">Manage supporting partners and the partnership CTA.</p>
+        <div class="card">
+          <div class="card-title">Supporting Partners</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+            <div>
+              <div style="font-weight:600;color:#fff;">Show supporting partners on site</div>
+              <div style="font-size:12px;color:var(--dim);margin-top:2px;">Hidden by default until partners are confirmed</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="f-partners-visible"><span class="toggle-track"></span></label>
+          </div>
+          <div id="partner-list"></div>
+          <button class="btn btn-ghost btn-sm" onclick="addPartner()" style="margin-top:8px;font-weight:600;">+ Add Partner</button>
+        </div>
+        <div class="card">
+          <div class="card-title">Partnership CTA <span>The "Put Your Brand..." card</span></div>
+          <div class="field"><label>Title <span style="font-weight:400;font-size:11px;">(HTML supported)</span></label><input type="text" id="f-partners-cta-title"></div>
+          <div class="field"><label>Subtext</label><textarea id="f-partners-cta-sub" rows="2"></textarea></div>
+          <div class="field"><label>Contact Email</label><input type="email" id="f-partners-cta-email"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  const OWNER = 'livewiremarkets1';
+  const REPO  = 'lwl-2026-prelaunch';
+  const FILE  = 'content.json';
+
+  let token = localStorage.getItem('lwl_tok');
+  let fileSha = null;
+  let speakerMode = 'tba';
+  let speakers = [];
+  let floaters = [];
+  let videos = [];
+  let partners = [];
+
+  // ── AUTH ──────────────────────────────────────────────
+
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('login-btn');
+    const err = document.getElementById('login-err');
+    btn.textContent = 'Signing in…';
+    btn.disabled = true;
+    err.style.display = 'none';
+    token = document.getElementById('tok').value.trim();
+    try {
+      const r = await gh(`/repos/${OWNER}/${REPO}`);
+      if (r.ok) {
+        localStorage.setItem('lwl_tok', token);
+        init();
+      } else {
+        err.textContent = 'Invalid token or no access to this repo. Check the token has Contents: Read & write.';
+        err.style.display = 'block';
+      }
+    } catch {
+      err.textContent = 'Network error — check your connection.';
+      err.style.display = 'block';
+    }
+    btn.textContent = 'Sign In';
+    btn.disabled = false;
+  });
+
+  function logout() {
+    localStorage.removeItem('lwl_tok');
+    location.reload();
+  }
+
+  // ── GITHUB API ────────────────────────────────────────
+
+  function gh(path, opts = {}) {
+    const url = path.startsWith('http') ? path : `https://api.github.com${path}`;
+    return fetch(url, {
+      ...opts,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Content-Type': 'application/json',
+        ...(opts.headers || {})
+      }
+    });
+  }
+
+  async function loadContent() {
+    const r = await gh(`/repos/${OWNER}/${REPO}/contents/${FILE}`);
+    if (r.status === 404) return null;
+    const d = await r.json();
+    fileSha = d.sha;
+    return JSON.parse(atob(d.content.replace(/\n/g, '')));
+  }
+
+  async function saveContent(data) {
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+    const body = JSON.stringify({ message: 'Update site content via admin', content, ...(fileSha ? { sha: fileSha } : {}) });
+    const r = await gh(`/repos/${OWNER}/${REPO}/contents/${FILE}`, { method: 'PUT', body });
+    if (!r.ok) return false;
+    const d = await r.json();
+    fileSha = d.content.sha;
+    return true;
+  }
+
+  async function uploadImage(filename, base64) {
+    const path = `brand_assets/${filename}`;
+    let sha;
+    const check = await gh(`/repos/${OWNER}/${REPO}/contents/${path}`);
+    if (check.ok) sha = (await check.json()).sha;
+    const body = JSON.stringify({ message: `Upload ${filename}`, content: base64, ...(sha ? { sha } : {}) });
+    const r = await gh(`/repos/${OWNER}/${REPO}/contents/${path}`, { method: 'PUT', body });
+    return r.ok ? path : null;
+  }
+
+  // ── INIT ──────────────────────────────────────────────
+
+  async function init() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    const data = await loadContent() || defaults();
+    populate(data);
+  }
+
+  function defaults() {
+    return {
+      sections: { hero:true, about:true, speakers:true, pastHighlights:true, register:true, partners:true },
+      hero: { eyebrow:'The 10th annual', date:'22 September 2026', location:'Art Gallery of New South Wales, Sydney, Australia', countdown:'2026-09-22T09:00:00+10:00', ctaPrimary:'Register Interest', ctaSecondary:'Watch 2025 Highlights' },
+      about: {
+        tagline:'One Room. One Day.<br><span class="gold">The Minds That<br>Move Markets.</span>',
+        description:"Livewire Live returns for its milestone 10th edition. Australia's most anticipated investment event brings together the country's best fund managers, strategists, and market thinkers for a full day of high-signal keynotes, live debates, and unscripted conversations you won't find anywhere else.",
+        stats:[{num:'400+',label:'Attendees'},{num:'17',label:'Speakers'},{num:'10',label:'Years Running'},{num:'1',label:'Unmissable Day'}]
+      },
+      speakers: { mode:'tba', tbaHeadline:'Speakers Announcing<br><span class="gold">Very Soon</span>', tbaSubtext:"Australia's most respected fund managers and market leaders — live on stage, unfiltered and unscripted. The full lineup drops soon. Register below to be first to know.", gridHeadline:'This Year\'s <span class="gold">Speakers</span>', items:[] },
+      highlights: {
+        headline:'Voices That Shaped<br><span class="gold">Our Thinking</span>',
+        subtitle:"For over a decade, Livewire Live has brought together the most respected names in funds management — delivering the sharpest insights, boldest calls, and most actionable ideas to Australia's leading investors.",
+        floating:[
+          {label:'Jeremy Grantham',videoId:'mSu43XNcPmg',image:'brand_assets/LWL-highlights-jeremy grantham.jpg'},
+          {label:'Qiao Ma',videoId:'G6mCsgtMx7k',image:'brand_assets/LWL-highlights-qiao-ma.jpg'},
+          {label:'Anne Milne',videoId:'Qx9EUiieBmo',image:'brand_assets/LWL-highlights-anne-milne.jpg'},
+          {label:'Victor Shvets',videoId:'XtEqBCHmtMY',image:'brand_assets/LWL-highlights-victor-shvets.jpg'},
+          {label:'Dr. David Allen',videoId:'YY_ncvzGWgI',image:'brand_assets/LWL-highlights-david-allen.jpg'},
+          {label:'2025 Panel',videoId:'tYPwu8x1YMM',image:'brand_assets/LWL-highlights-panel-high-conviction.jpg'},
+          {label:'Chris Joye',videoId:'fR0A5HMFyFI',image:'brand_assets/LWL-highlights-chris-joye.jpg'}
+        ],
+        videos:[
+          {videoId:'3C2D2s02lOw',label:'LWL 2025 Highlights'},
+          {videoId:'kcSdgfvGvPY',label:'Video 2'},
+          {videoId:'ID5indpKcFA',label:'Video 3'},
+          {videoId:'lRZgqQM3O9I',label:'Video 4'}
+        ]
+      },
+      register: { eyebrow:'22 September 2026 — Sydney', headline:'Be First to<br><span class="gold">Know &amp; Register</span>', subtext:"Tickets aren't on sale yet — but they will be soon, and they go fast. Drop your email below to be the first notified when tickets open, and get early access to speaker announcements." },
+      partners: { supportingPartnersVisible:false, supportingPartners:[], ctaTitle:'Put Your Brand at the Centre of <span class="gold">Australian Investing</span>', ctaSub:"Reach some of Australia's most influential investors, advisers, and fund managers in a single day.", ctaEmail:'partnerships@livewiremarkets.com' }
+    };
+  }
+
+  // ── POPULATE FORM ─────────────────────────────────────
+
+  function populate(d) {
+    // Section toggles
+    ['hero','about','speakers','pastHighlights','register','partners'].forEach(k => {
+      const v = d.sections ? d.sections[k] !== false : true;
+      const sb = document.getElementById('t-' + k);
+      const ov = document.getElementById('ov-' + k);
+      if (sb) sb.checked = v;
+      if (ov) ov.checked = v;
+    });
+
+    // Hero
+    if (d.hero) {
+      sv('f-hero-eyebrow', d.hero.eyebrow);
+      sv('f-hero-date', d.hero.date);
+      sv('f-hero-location', d.hero.location);
+      sv('f-hero-countdown', d.hero.countdown);
+      sv('f-hero-cta-primary', d.hero.ctaPrimary);
+      sv('f-hero-cta-secondary', d.hero.ctaSecondary);
+    }
+
+    // About
+    if (d.about) {
+      sv('f-about-tagline', d.about.tagline);
+      sv('f-about-description', d.about.description);
+      renderStats(d.about.stats || []);
+    }
+
+    // Speakers
+    if (d.speakers) {
+      speakerMode = d.speakers.mode || 'tba';
+      setSpeakerMode(speakerMode);
+      sv('f-sp-tba-headline', d.speakers.tbaHeadline);
+      sv('f-sp-tba-subtext', d.speakers.tbaSubtext);
+      sv('f-sp-grid-headline', d.speakers.gridHeadline);
+      speakers = d.speakers.items || [];
+      renderSpeakers();
+    }
+
+    // Highlights
+    if (d.highlights) {
+      sv('f-hl-headline', d.highlights.headline);
+      sv('f-hl-subtitle', d.highlights.subtitle);
+      floaters = d.highlights.floating || [];
+      videos = d.highlights.videos || [];
+      renderFloaters();
+      renderVideos();
+    }
+
+    // Register
+    if (d.register) {
+      sv('f-reg-eyebrow', d.register.eyebrow);
+      sv('f-reg-headline', d.register.headline);
+      sv('f-reg-subtext', d.register.subtext);
+    }
+
+    // Partners
+    if (d.partners) {
+      const vis = document.getElementById('f-partners-visible');
+      if (vis) vis.checked = d.partners.supportingPartnersVisible || false;
+      partners = d.partners.supportingPartners || [];
+      renderPartners();
+      sv('f-partners-cta-title', d.partners.ctaTitle);
+      sv('f-partners-cta-sub', d.partners.ctaSub);
+      sv('f-partners-cta-email', d.partners.ctaEmail);
+    }
+  }
+
+  // ── HELPERS ───────────────────────────────────────────
+
+  function sv(id, val) { const el = document.getElementById(id); if (el && val != null) el.value = val; }
+  function gv(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  // ── NAVIGATION ────────────────────────────────────────
+
+  document.querySelectorAll('.nav-item[data-panel]').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      const panel = document.getElementById('panel-' + item.dataset.panel);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  // Sync sidebar toggles → overview toggles and vice versa
+  ['hero','about','speakers','pastHighlights','register','partners'].forEach(k => {
+    const sb = document.getElementById('t-' + k);
+    const ov = document.getElementById('ov-' + k);
+    if (sb) sb.addEventListener('change', () => { if (ov) ov.checked = sb.checked; });
+  });
+
+  function syncToggle(key, val) {
+    const sb = document.getElementById('t-' + key);
+    if (sb) sb.checked = val;
+  }
+
+  // ── STATS ─────────────────────────────────────────────
+
+  function renderStats(stats) {
+    const el = document.getElementById('stats-list');
+    el.innerHTML = stats.map((s, i) => `
+      <div class="field-row" style="margin-bottom:10px;">
+        <div class="field"><label>Number</label><input type="text" id="sn-${i}" value="${esc(s.num)}" placeholder="400+"></div>
+        <div class="field"><label>Label</label><input type="text" id="sl-${i}" value="${esc(s.label)}" placeholder="Attendees"></div>
+      </div>`).join('');
+  }
+
+  function getStats() {
+    const out = []; let i = 0;
+    while (document.getElementById('sn-' + i)) {
+      out.push({ num: gv('sn-' + i), label: gv('sl-' + i) });
+      i++;
+    }
+    return out;
+  }
+
+  // ── SPEAKERS ──────────────────────────────────────────
+
+  function setSpeakerMode(mode) {
+    speakerMode = mode;
+    document.getElementById('mode-tba').classList.toggle('active', mode === 'tba');
+    document.getElementById('mode-grid').classList.toggle('active', mode === 'grid');
+    document.getElementById('tba-fields').style.display = mode === 'tba' ? 'block' : 'none';
+    document.getElementById('grid-fields').style.display = mode === 'grid' ? 'block' : 'none';
+    document.getElementById('speaker-grid-card').style.display = mode === 'grid' ? 'block' : 'none';
+  }
+
+  function renderSpeakers() {
+    const el = document.getElementById('speaker-list');
+    if (!speakers.length) { el.innerHTML = '<div class="empty">No speakers yet — click "+ Add Speaker" to begin.</div>'; return; }
+    el.innerHTML = speakers.map((s, i) => `
+      <div class="speaker-item" id="sp-${i}">
+        <div class="speaker-item-head">
+          <img class="speaker-avatar" id="sp-av-${i}" src="${esc(s.photo)}" onerror="this.src=''" alt="">
+          <div class="speaker-meta">
+            <div class="speaker-name-preview" id="sp-np-${i}">${esc(s.name) || 'New Speaker'}</div>
+            <div class="speaker-role-preview">${esc(s.title)||''}${s.title && s.company ? ' · ' : ''}${esc(s.company)||''}</div>
+          </div>
+          <button class="btn btn-danger" onclick="removeSpeaker(${i})">Remove</button>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Name</label><input type="text" value="${esc(s.name)}" onchange="speakers[${i}].name=this.value;refreshSpPreview(${i})"></div>
+          <div class="field"><label>Title / Role</label><input type="text" value="${esc(s.title)}" onchange="speakers[${i}].title=this.value"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Company / Fund</label><input type="text" value="${esc(s.company)}" onchange="speakers[${i}].company=this.value"></div>
+          <div class="field"><label>Photo URL</label><input type="url" value="${esc(s.photo)}" placeholder="https://..." onchange="speakers[${i}].photo=this.value;refreshSpPreview(${i})"></div>
+        </div>
+        <div class="field">
+          <label>Upload photo <span style="font-weight:400;">(uploads to repo, then auto-fills URL above)</span></label>
+          <input type="file" accept="image/*" onchange="uploadSpeakerPhoto(${i},this)">
+          <div class="upload-status" id="sp-us-${i}"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  function addSpeaker() {
+    speakers.push({ name:'', title:'', company:'', photo:'' });
+    renderSpeakers();
+    document.getElementById('sp-' + (speakers.length-1))?.scrollIntoView({ behavior:'smooth' });
+  }
+
+  function removeSpeaker(i) {
+    if (!confirm('Remove this speaker?')) return;
+    speakers.splice(i, 1);
+    renderSpeakers();
+  }
+
+  function refreshSpPreview(i) {
+    const av = document.getElementById('sp-av-' + i);
+    const np = document.getElementById('sp-np-' + i);
+    if (av) av.src = speakers[i].photo || '';
+    if (np) np.textContent = speakers[i].name || 'New Speaker';
+  }
+
+  async function uploadSpeakerPhoto(i, input) {
+    const file = input.files[0];
+    if (!file) return;
+    const st = document.getElementById('sp-us-' + i);
+    st.textContent = 'Uploading…';
+    st.style.color = 'var(--dim)';
+    const reader = new FileReader();
+    reader.onload = async e => {
+      const base64 = e.target.result.split(',')[1];
+      const fname = 'speaker-' + Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+      const path = await uploadImage(fname, base64);
+      if (path) {
+        speakers[i].photo = path;
+        refreshSpPreview(i);
+        // Also update the URL input in the card
+        const card = document.getElementById('sp-' + i);
+        if (card) { const urlInput = card.querySelector('input[type="url"]'); if (urlInput) urlInput.value = path; }
+        st.textContent = '✓ Uploaded — ' + path;
+        st.style.color = 'var(--success)';
+      } else {
+        st.textContent = '✗ Upload failed. Make sure your token has Contents: Read & write.';
+        st.style.color = 'var(--danger)';
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ── HIGHLIGHTS ────────────────────────────────────────
+
+  function renderFloaters() {
+    const el = document.getElementById('floating-list');
+    el.innerHTML = floaters.map((f, i) => `
+      <div class="hl-item">
+        <img class="hl-thumb" src="${esc(f.image)}" alt="" onerror="this.style.opacity=0.15">
+        <div class="hl-fields">
+          <div><label>Label</label><input type="text" value="${esc(f.label)}" onchange="floaters[${i}].label=this.value"></div>
+          <div><label>YouTube Video ID</label><input type="text" value="${esc(f.videoId)}" onchange="floaters[${i}].videoId=this.value" placeholder="mSu43XNcPmg"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  function renderVideos() {
+    const el = document.getElementById('video-list');
+    el.innerHTML = videos.map((v, i) => `
+      <div class="hl-item">
+        <img class="hl-thumb" id="vt-${i}" src="https://img.youtube.com/vi/${esc(v.videoId)}/mqdefault.jpg" alt="" onerror="this.style.opacity=0.15">
+        <div class="hl-fields">
+          <div><label>Label</label><input type="text" value="${esc(v.label)}" onchange="videos[${i}].label=this.value"></div>
+          <div><label>YouTube Video ID</label><input type="text" value="${esc(v.videoId)}" onchange="videos[${i}].videoId=this.value;refreshVtPreview(${i},this.value)" placeholder="3C2D2s02lOw"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  function refreshVtPreview(i, id) {
+    const img = document.getElementById('vt-' + i);
+    if (img) img.src = 'https://img.youtube.com/vi/' + id + '/mqdefault.jpg';
+  }
+
+  // ── PARTNERS ──────────────────────────────────────────
+
+  function renderPartners() {
+    const el = document.getElementById('partner-list');
+    if (!partners.length) { el.innerHTML = '<div class="empty" style="padding:12px 0;">No supporting partners yet.</div>'; return; }
+    el.innerHTML = partners.map((p, i) => `
+      <div class="partner-item">
+        <div class="field" style="margin:0;"><label>Partner Name</label><input type="text" value="${esc(p.name)}" onchange="partners[${i}].name=this.value" placeholder="Company Name"></div>
+        <div class="field" style="margin:0;"><label>Logo URL</label><input type="url" value="${esc(p.logo)}" onchange="partners[${i}].logo=this.value" placeholder="https://…"></div>
+        <button class="btn btn-danger" style="margin-top:18px;" onclick="removePartner(${i})">✕</button>
+      </div>`).join('');
+  }
+
+  function addPartner() { partners.push({ name:'', logo:'' }); renderPartners(); }
+  function removePartner(i) { partners.splice(i, 1); renderPartners(); }
+
+  // ── COLLECT & SAVE ────────────────────────────────────
+
+  function collect() {
+    const sec = {};
+    ['hero','about','speakers','pastHighlights','register','partners'].forEach(k => {
+      const el = document.getElementById('t-' + k);
+      sec[k] = el ? el.checked : true;
+    });
+    return {
+      sections: sec,
+      hero: { eyebrow:gv('f-hero-eyebrow'), date:gv('f-hero-date'), location:gv('f-hero-location'), countdown:gv('f-hero-countdown'), ctaPrimary:gv('f-hero-cta-primary'), ctaSecondary:gv('f-hero-cta-secondary') },
+      about: { tagline:gv('f-about-tagline'), description:gv('f-about-description'), stats:getStats() },
+      speakers: { mode:speakerMode, tbaHeadline:gv('f-sp-tba-headline'), tbaSubtext:gv('f-sp-tba-subtext'), gridHeadline:gv('f-sp-grid-headline'), items:speakers },
+      highlights: { headline:gv('f-hl-headline'), subtitle:gv('f-hl-subtitle'), floating:floaters, videos:videos },
+      register: { eyebrow:gv('f-reg-eyebrow'), headline:gv('f-reg-headline'), subtext:gv('f-reg-subtext') },
+      partners: { supportingPartnersVisible:document.getElementById('f-partners-visible')?.checked||false, supportingPartners:partners, ctaTitle:gv('f-partners-cta-title'), ctaSub:gv('f-partners-cta-sub'), ctaEmail:gv('f-partners-cta-email') }
+    };
+  }
+
+  async function saveAndPublish() {
+    const btn = document.getElementById('save-btn');
+    const st = document.getElementById('save-status');
+    btn.disabled = true;
+    btn.textContent = 'Publishing…';
+    st.textContent = '';
+    st.className = 'save-status';
+    try {
+      const ok = await saveContent(collect());
+      if (ok) {
+        st.textContent = '✓ Published — live in ~60s';
+        st.className = 'save-status status-ok';
+      } else {
+        st.textContent = '✗ Save failed — try again';
+        st.className = 'save-status status-err';
+      }
+    } catch (e) {
+      st.textContent = '✗ ' + (e.message || 'Error');
+      st.className = 'save-status status-err';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Save & Publish';
+    setTimeout(() => { st.textContent = ''; st.className = 'save-status'; }, 6000);
+  }
+
+  // ── AUTO-LOGIN ────────────────────────────────────────
+
+  if (token) init().catch(() => { localStorage.removeItem('lwl_tok'); token = null; });
+</script>
+</body>
+</html>

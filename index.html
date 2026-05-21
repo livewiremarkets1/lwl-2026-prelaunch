@@ -2682,12 +2682,12 @@
 
     <!-- Main content -->
     <div class="hero-content">
-      <div class="hero-eyebrow">The 10th annual</div>
+      <div class="hero-eyebrow" data-cms="hero-eyebrow">The 10th annual</div>
 
       <img src="brand_assets/LWL-2026_logo.svg" alt="Livewire Live 2026" class="hero-logo">
 
       <div class="hero-date">
-        <span>22 September 2026</span> &nbsp;&middot;&nbsp; Art Gallery of New South Wales, Sydney, Australia
+        <span data-cms="hero-date">22 September 2026</span> &nbsp;&middot;&nbsp; <span data-cms="hero-location">Art Gallery of New South Wales, Sydney, Australia</span>
       </div>
 
       <div class="countdown" id="countdown">
@@ -2766,10 +2766,10 @@
       <div class="about-grid">
         <div>
           <div class="section-eyebrow reveal">About the Event</div>
-          <h2 class="section-title reveal reveal-delay-1">
+          <h2 class="section-title reveal reveal-delay-1" data-cms="about-tagline">
             One Room. One Day.<br><span class="gold">The Minds That<br>Move Markets.</span>
           </h2>
-          <p class="section-sub reveal reveal-delay-2">
+          <p class="section-sub reveal reveal-delay-2" data-cms="about-description">
             Livewire Live returns for its milestone 10th edition. Australia's most anticipated investment event brings
             together the country's best fund managers, strategists, and market thinkers for a full day of high-signal
             keynotes, live debates, and unscripted conversations you won't find anywhere else.
@@ -2780,20 +2780,20 @@
         </div>
         <div class="about-stats reveal reveal-delay-2">
           <div class="stat-item">
-            <div class="stat-num">400+</div>
-            <div class="stat-label">Attendees</div>
+            <div class="stat-num" data-cms="stat-num-0">400+</div>
+            <div class="stat-label" data-cms="stat-label-0">Attendees</div>
           </div>
           <div class="stat-item">
-            <div class="stat-num">17</div>
-            <div class="stat-label">Speakers</div>
+            <div class="stat-num" data-cms="stat-num-1">17</div>
+            <div class="stat-label" data-cms="stat-label-1">Speakers</div>
           </div>
           <div class="stat-item">
-            <div class="stat-num">10</div>
-            <div class="stat-label">Years Running</div>
+            <div class="stat-num" data-cms="stat-num-2">10</div>
+            <div class="stat-label" data-cms="stat-label-2">Years Running</div>
           </div>
           <div class="stat-item">
-            <div class="stat-num">1</div>
-            <div class="stat-label">Unmissable Day</div>
+            <div class="stat-num" data-cms="stat-num-3">1</div>
+            <div class="stat-label" data-cms="stat-label-3">Unmissable Day</div>
           </div>
         </div>
       </div>
@@ -2804,10 +2804,10 @@
   <section id="speakers" style="padding: 100px 0; background: #080D1A; text-align: center;">
     <div class="section-inner">
       <div class="section-eyebrow reveal" style="justify-content: center;">The Lineup</div>
-      <h2 class="section-title reveal reveal-delay-1" style="text-align: center;">
+      <h2 class="section-title reveal reveal-delay-1" style="text-align: center;" data-cms="speakers-tba-headline">
         Speakers Announcing<br><span class="gold">Very Soon</span>
       </h2>
-      <p class="section-sub reveal reveal-delay-2" style="margin: 0 auto; max-width: 520px; text-align: center;">
+      <p class="section-sub reveal reveal-delay-2" style="margin: 0 auto; max-width: 520px; text-align: center;" data-cms="speakers-tba-subtext">
         Australia's most respected fund managers and market leaders — live on stage, unfiltered and unscripted.
         The full lineup drops soon. Register below to be first to know.
       </p>
@@ -2823,7 +2823,7 @@
     <div class="ps-stage">
       <div class="ps-float">
         <!-- Near — full size -->
-        <button class="ps-item ps-item-1" data-depth="0.5" onclick="openVideo('mSu43XNcPmg')"
+        <button class="ps-item ps-item-1" data-depth="0.5" data-float-idx="0" onclick="openVideo('mSu43XNcPmg')"
           aria-label="Watch Jeremy Grantham">
           <img src="brand_assets/LWL-highlights-jeremy grantham.jpg" alt="Jeremy Grantham" loading="lazy">
           <div class="ps-item-play">
@@ -2833,7 +2833,7 @@
           </div>
           <div class="ps-item-label">Jeremy Grantham</div>
         </button>
-        <button class="ps-item ps-item-4" data-depth="0.8" onclick="openVideo('G6mCsgtMx7k')"
+        <button class="ps-item ps-item-4" data-depth="0.8" data-float-idx="1" onclick="openVideo('G6mCsgtMx7k')"
           aria-label="Watch Qiao Ma">
           <img src="brand_assets/LWL-highlights-qiao-ma.jpg" alt="Qiao Ma" loading="lazy">
           <div class="ps-item-play">
@@ -2844,7 +2844,7 @@
           <div class="ps-item-label">Qiao Ma</div>
         </button>
         <!-- Mid distance -->
-        <button class="ps-item ps-item-2" data-depth="1.2" onclick="openVideo('Qx9EUiieBmo')"
+        <button class="ps-item ps-item-2" data-depth="1.2" data-float-idx="2" onclick="openVideo('Qx9EUiieBmo')"
           aria-label="Watch Anne Milne">
           <img src="brand_assets/LWL-highlights-anne-milne.jpg" alt="Anne Milne" loading="lazy">
           <div class="ps-item-play">
@@ -2854,7 +2854,7 @@
           </div>
           <div class="ps-item-label">Anne Milne</div>
         </button>
-        <button class="ps-item ps-item-5" data-depth="1.4" onclick="openVideo('XtEqBCHmtMY')"
+        <button class="ps-item ps-item-5" data-depth="1.4" data-float-idx="3" onclick="openVideo('XtEqBCHmtMY')"
           aria-label="Watch Victor Shvets">
           <img src="brand_assets/LWL-highlights-victor-shvets.jpg" alt="Victor Shvets" loading="lazy">
           <div class="ps-item-play">
@@ -2864,7 +2864,7 @@
           </div>
           <div class="ps-item-label">Victor Shvets</div>
         </button>
-        <button class="ps-item ps-item-8" data-depth="1.3" onclick="openVideo('YY_ncvzGWgI')"
+        <button class="ps-item ps-item-8" data-depth="1.3" data-float-idx="4" onclick="openVideo('YY_ncvzGWgI')"
           aria-label="Watch Dr. David Allen">
           <img src="brand_assets/LWL-highlights-david-allen.jpg" alt="Dr. David Allen" loading="lazy">
           <div class="ps-item-play">
@@ -2875,7 +2875,7 @@
           <div class="ps-item-label">Dr. David Allen</div>
         </button>
         <!-- Far — smaller, pushed back -->
-        <button class="ps-item ps-item-3" data-depth="2" onclick="openVideo('tYPwu8x1YMM')"
+        <button class="ps-item ps-item-3" data-depth="2" data-float-idx="5" onclick="openVideo('tYPwu8x1YMM')"
           aria-label="Watch 2025 Panel">
           <img src="brand_assets/LWL-highlights-panel-high-conviction.jpg" alt="2025 Panel" loading="lazy">
           <div class="ps-item-play">
@@ -2885,7 +2885,7 @@
           </div>
           <div class="ps-item-label">2025 Panel</div>
         </button>
-        <button class="ps-item ps-item-6" data-depth="2.2" onclick="openVideo('fR0A5HMFyFI')"
+        <button class="ps-item ps-item-6" data-depth="2.2" data-float-idx="6" onclick="openVideo('fR0A5HMFyFI')"
           aria-label="Watch Chris Joye">
           <img src="brand_assets/LWL-highlights-chris-joye.jpg" alt="Chris Joye" loading="lazy">
           <div class="ps-item-play">
@@ -2900,12 +2900,12 @@
     <div class="section-inner">
       <!-- Section header -->
       <div class="section-eyebrow reveal">Past Highlights</div>
-      <h2 class="section-title reveal reveal-delay-1">
+      <h2 class="section-title reveal reveal-delay-1" data-cms="highlights-headline">
         Voices That Shaped<br><span class="gold">Our Thinking</span>
       </h2>
 
       <!-- Subtitle -->
-      <p class="ps-subtitle reveal reveal-delay-2">
+      <p class="ps-subtitle reveal reveal-delay-2" data-cms="highlights-subtitle">
         For over a decade, Livewire Live has brought together the most respected names in
         funds management — delivering the sharpest insights, boldest calls, and most actionable ideas
         to Australia's leading investors.
@@ -2920,7 +2920,7 @@
         </h3>
 
         <div class="video-playlist-grid">
-          <div class="video-thumb reveal" onclick="openVideo('3C2D2s02lOw')" role="button" tabindex="0"
+          <div class="video-thumb reveal" data-video-idx="0" onclick="openVideo('3C2D2s02lOw')" role="button" tabindex="0"
             aria-label="Play Livewire Live 2025 Highlights">
             <div class="video-thumb-bg">
               <img src="https://img.youtube.com/vi/3C2D2s02lOw/maxresdefault.jpg" alt="" loading="lazy">
@@ -2934,7 +2934,7 @@
             </div>
           </div>
 
-          <div class="video-thumb reveal reveal-delay-1" onclick="openVideo('kcSdgfvGvPY')" role="button" tabindex="0"
+          <div class="video-thumb reveal reveal-delay-1" data-video-idx="1" onclick="openVideo('kcSdgfvGvPY')" role="button" tabindex="0"
             aria-label="Play video 2">
             <div class="video-thumb-bg">
               <img src="https://img.youtube.com/vi/kcSdgfvGvPY/maxresdefault.jpg" alt="" loading="lazy">
@@ -2948,7 +2948,7 @@
             </div>
           </div>
 
-          <div class="video-thumb reveal reveal-delay-2" onclick="openVideo('ID5indpKcFA')" role="button" tabindex="0"
+          <div class="video-thumb reveal reveal-delay-2" data-video-idx="2" onclick="openVideo('ID5indpKcFA')" role="button" tabindex="0"
             aria-label="Play video 3">
             <div class="video-thumb-bg">
               <img src="https://img.youtube.com/vi/ID5indpKcFA/maxresdefault.jpg" alt="" loading="lazy">
@@ -2962,7 +2962,7 @@
             </div>
           </div>
 
-          <div class="video-thumb reveal reveal-delay-3" onclick="openVideo('lRZgqQM3O9I')" role="button" tabindex="0"
+          <div class="video-thumb reveal reveal-delay-3" data-video-idx="3" onclick="openVideo('lRZgqQM3O9I')" role="button" tabindex="0"
             aria-label="Play video 4">
             <div class="video-thumb-bg">
               <img src="https://img.youtube.com/vi/lRZgqQM3O9I/maxresdefault.jpg" alt="" loading="lazy">
@@ -3009,13 +3009,13 @@
       <path class="deco-comet" filter="url(#deco-bloom)" d="M 1860 -8 L -60 520" />
     </svg>
     <div class="cta-inner">
-      <div class="section-eyebrow reveal" style="justify-content: center;">
+      <div class="section-eyebrow reveal" style="justify-content: center;" data-cms="register-eyebrow">
         22 September 2026 &mdash; Sydney
       </div>
-      <h2 class="cta-title reveal reveal-delay-1">
+      <h2 class="cta-title reveal reveal-delay-1" data-cms="register-headline">
         Be First to<br><span class="gold">Know &amp; Register</span>
       </h2>
-      <p class="cta-sub reveal reveal-delay-2">
+      <p class="cta-sub reveal reveal-delay-2" data-cms="register-subtext">
         Tickets aren't on sale yet — but they will be soon, and they go fast.
         Drop your email below to be the first notified when tickets open, and get early access to speaker announcements.
       </p>
@@ -3241,7 +3241,7 @@
     });
 
     // ─── COUNTDOWN ───
-    const TARGET = new Date('2026-09-22T09:00:00+10:00');
+    let TARGET = new Date('2026-09-22T09:00:00+10:00');
     const cdDays = document.getElementById('cd-days');
     const cdHours = document.getElementById('cd-hours');
     const cdMins = document.getElementById('cd-mins');
@@ -3521,6 +3521,132 @@
         });
       }, { threshold: 0.08 });
       items.forEach(function (el) { imgObs.observe(el); });
+    })();
+
+    // ─── CMS CONTENT LOADER ───
+    (async function lwlCMS() {
+      try {
+        const res = await fetch('content.json', { cache: 'no-store' });
+        if (!res.ok) return;
+        const c = await res.json();
+
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => document.querySelectorAll(sel);
+        const setCmsText = (key, val) => { const el = $(`[data-cms="${key}"]`); if (el && val != null) el.textContent = val; };
+        const setCmsHtml = (key, val) => { const el = $(`[data-cms="${key}"]`); if (el && val != null) el.innerHTML = val; };
+
+        // ─ Section visibility ─
+        const sectionMap = { hero: 'hero', about: 'about', speakers: 'speakers', pastHighlights: 'past-speakers', register: 'register', partners: 'partners' };
+        if (c.sections) {
+          for (const [key, id] of Object.entries(sectionMap)) {
+            if (c.sections[key] === false) {
+              const el = document.getElementById(id);
+              if (el) el.style.display = 'none';
+              $$(`a[href="#${id}"]`).forEach(a => { a.style.display = 'none'; if (a.parentElement && a.parentElement.tagName === 'LI') a.parentElement.style.display = 'none'; });
+            }
+          }
+        }
+
+        // ─ Hero ─
+        if (c.hero) {
+          setCmsText('hero-eyebrow', c.hero.eyebrow);
+          setCmsText('hero-date', c.hero.date);
+          setCmsText('hero-location', c.hero.location);
+          if (c.hero.countdown) TARGET = new Date(c.hero.countdown);
+        }
+
+        // ─ About ─
+        if (c.about) {
+          setCmsHtml('about-tagline', c.about.tagline);
+          setCmsText('about-description', c.about.description);
+          if (c.about.stats) {
+            c.about.stats.forEach(function(stat, i) {
+              setCmsText('stat-num-' + i, stat.num);
+              setCmsText('stat-label-' + i, stat.label);
+            });
+          }
+        }
+
+        // ─ Speakers ─
+        if (c.speakers) {
+          if (c.speakers.mode === 'grid' && c.speakers.items && c.speakers.items.length > 0) {
+            var section = document.getElementById('speakers');
+            if (section) {
+              section.innerHTML = '<div class="section-inner">' +
+                '<div class="section-eyebrow reveal" style="justify-content:center;">The Lineup</div>' +
+                '<h2 class="section-title reveal reveal-delay-1" style="text-align:center;">' + (c.speakers.gridHeadline || 'Our <span class="gold">Speakers</span>') + '</h2>' +
+                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:32px;margin-top:48px;">' +
+                c.speakers.items.map(function(s) {
+                  return '<div style="text-align:center;">' +
+                    '<img src="' + s.photo + '" alt="' + s.name + '" style="width:110px;height:110px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,212,59,0.3);margin-bottom:14px;">' +
+                    '<div style="font-weight:700;font-size:0.95rem;margin-bottom:4px;">' + s.name + '</div>' +
+                    '<div style="font-size:0.8rem;color:rgba(255,255,255,0.6);">' + s.title + '</div>' +
+                    '<div style="font-size:0.8rem;color:rgba(255,255,255,0.4);">' + s.company + '</div>' +
+                    '</div>';
+                }).join('') +
+                '</div></div>';
+            }
+          } else {
+            setCmsHtml('speakers-tba-headline', c.speakers.tbaHeadline);
+            setCmsText('speakers-tba-subtext', c.speakers.tbaSubtext);
+          }
+        }
+
+        // ─ Past Highlights ─
+        if (c.highlights) {
+          setCmsHtml('highlights-headline', c.highlights.headline);
+          setCmsText('highlights-subtitle', c.highlights.subtitle);
+          if (c.highlights.floating) {
+            $$('[data-float-idx]').forEach(function(btn) {
+              var idx = parseInt(btn.dataset.floatIdx);
+              var item = c.highlights.floating[idx];
+              if (!item) return;
+              btn.onclick = function() { openVideo(item.videoId); };
+              btn.setAttribute('aria-label', 'Watch ' + item.label);
+              var label = btn.querySelector('.ps-item-label');
+              if (label) label.textContent = item.label;
+            });
+          }
+          if (c.highlights.videos) {
+            $$('[data-video-idx]').forEach(function(div) {
+              var idx = parseInt(div.dataset.videoIdx);
+              var item = c.highlights.videos[idx];
+              if (!item) return;
+              div.onclick = function() { openVideo(item.videoId); };
+              div.setAttribute('aria-label', 'Play ' + item.label);
+              var img = div.querySelector('img');
+              if (img) img.src = 'https://img.youtube.com/vi/' + item.videoId + '/maxresdefault.jpg';
+            });
+          }
+        }
+
+        // ─ Register ─
+        if (c.register) {
+          setCmsText('register-eyebrow', c.register.eyebrow);
+          setCmsHtml('register-headline', c.register.headline);
+          setCmsText('register-subtext', c.register.subtext);
+        }
+
+        // ─ Partners ─
+        if (c.partners) {
+          if (c.partners.supportingPartnersVisible && c.partners.supportingPartners && c.partners.supportingPartners.length > 0) {
+            var sponsorLayout = $('#partners .partners-sponsor-layout');
+            if (sponsorLayout) {
+              var html = '<div class="sponsor-col-supporting">';
+              html += '<div class="sponsor-col-label">Supporting Partners</div>';
+              html += '<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;">';
+              c.partners.supportingPartners.forEach(function(p) {
+                html += '<div class="partner-tile"><img src="' + p.logo + '" alt="' + p.name + '" style="max-height:40px;" loading="lazy"></div>';
+              });
+              html += '</div></div>';
+              sponsorLayout.insertAdjacentHTML('beforeend', html);
+            }
+          }
+        }
+
+      } catch(e) {
+        // Silently fall back to hardcoded defaults
+      }
     })();
 
   </script>
