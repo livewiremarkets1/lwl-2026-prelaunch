@@ -1749,6 +1749,81 @@
       }
     }
 
+    /* ─── AGENDA ─── */
+    #agenda {
+      padding: 120px 0;
+      background: linear-gradient(180deg, #0A0F1E 0%, #08101E 100%);
+      position: relative;
+    }
+
+    #agenda::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(9,53,164,0.5), rgba(221,172,44,0.2), rgba(9,53,164,0.5), transparent);
+    }
+
+    .agenda-grid {
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 22px 32px;
+      background: rgba(14, 22, 40, 0.8);
+      border: 1px solid rgba(26, 40, 69, 0.7);
+      border-radius: 4px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .agenda-item:hover {
+      background: rgba(13, 27, 62, 0.5);
+      border-color: rgba(221, 172, 44, 0.15);
+    }
+
+    .agenda-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gold-mid);
+      opacity: 0.6;
+    }
+
+    .agenda-name {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .agenda-desc {
+      font-size: 13px;
+      color: var(--white-40);
+    }
+
+    .agenda-tag {
+      padding: 5px 13px;
+      border-radius: 40px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tag-strategy  { background: rgba(221,172,44,0.1);  color: var(--gold-mid); border: 1px solid rgba(221,172,44,0.25); }
+    .tag-equities  { background: rgba(9,53,164,0.2);    color: #6DA4FF;         border: 1px solid rgba(9,53,164,0.4); }
+    .tag-macro     { background: rgba(19,174,118,0.1);  color: #18DC95;         border: 1px solid rgba(19,174,118,0.25); }
+    .tag-psychology{ background: rgba(162,89,255,0.1);  color: #C084FC;         border: 1px solid rgba(162,89,255,0.25); }
+    .tag-bold      { background: rgba(224,82,82,0.1);   color: #F87171;         border: 1px solid rgba(224,82,82,0.25); }
+
     /* ─── REGISTER FORM ─── */
     .register-form {
       width: 100%;
@@ -2420,6 +2495,15 @@
     }
 
     @media (max-width: 900px) {
+      .agenda-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 18px 24px;
+      }
+      .agenda-tag { align-self: start; width: fit-content; }
+    }
+
+    @media (max-width: 900px) {
       #past-speakers .video-playlist-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -2647,6 +2731,7 @@
     </a>
     <div class="nav-links">
       <a href="#about">About</a>
+      <a href="#agenda">Agenda</a>
       <a href="#past-speakers">Past Highlights</a>
       <a href="#partners">Partners</a>
       <a href="https://www.livewiremarkets.com/" target="_blank" rel="noopener">Back to Livewire</a>
@@ -2662,6 +2747,7 @@
   <!-- MOBILE DRAWER -->
   <div class="nav-drawer" id="nav-drawer">
     <a href="#about">About</a>
+    <a href="#agenda">Agenda</a>
     <a href="#past-speakers">Past Highlights</a>
     <a href="#partners">Partners</a>
     <a href="https://www.livewiremarkets.com/" target="_blank" rel="noopener">Back to Livewire</a>
@@ -2816,6 +2902,77 @@
       </p>
       <div class="reveal reveal-delay-3" style="margin-top: 40px;">
         <a href="https://livewirelive2026.eventbrite.com.au/" target="_blank" rel="noopener" class="btn-primary">Register Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section id="agenda">
+    <svg class="deco-line" aria-hidden="true" viewBox="0 0 1920 640" preserveAspectRatio="xMidYMid slice"
+      xmlns="http://www.w3.org/2000/svg">
+      <path class="deco-comet" filter="url(#deco-bloom)" d="M -60 10 L 1960 622" />
+    </svg>
+    <div class="section-inner">
+      <div style="max-width: 560px;">
+        <div class="section-eyebrow reveal">The Agenda</div>
+        <h2 class="section-title reveal reveal-delay-1">Six Sessions.<br><span class="gold">Zero Filler.</span></h2>
+      </div>
+      <div class="agenda-grid">
+
+        <div class="agenda-item reveal">
+          <div class="agenda-num">01</div>
+          <div>
+            <div class="agenda-name">Investment Strategy</div>
+            <div class="agenda-desc">The signals that actually matter for asset allocation.</div>
+          </div>
+          <span class="agenda-tag tag-strategy">Strategy</span>
+        </div>
+
+        <div class="agenda-item reveal">
+          <div class="agenda-num">02</div>
+          <div>
+            <div class="agenda-name">Australian Equities</div>
+            <div class="agenda-desc">Where to find untapped value in the local market.</div>
+          </div>
+          <span class="agenda-tag tag-equities">Equities</span>
+        </div>
+
+        <div class="agenda-item reveal">
+          <div class="agenda-num">03</div>
+          <div>
+            <div class="agenda-name">Structural Megatrends</div>
+            <div class="agenda-desc">The "must-know" shifts and how to position for them.</div>
+          </div>
+          <span class="agenda-tag tag-macro">Megatrends</span>
+        </div>
+
+        <div class="agenda-item reveal">
+          <div class="agenda-num">04</div>
+          <div>
+            <div class="agenda-name">Global Equities</div>
+            <div class="agenda-desc">The international stocks everyone will wish they owned.</div>
+          </div>
+          <span class="agenda-tag tag-equities">Equities</span>
+        </div>
+
+        <div class="agenda-item reveal">
+          <div class="agenda-num">05</div>
+          <div>
+            <div class="agenda-name">Investor Psychology</div>
+            <div class="agenda-desc">7 common traps that sabotage performance.</div>
+          </div>
+          <span class="agenda-tag tag-psychology">Psychology</span>
+        </div>
+
+        <div class="agenda-item reveal">
+          <div class="agenda-num">06</div>
+          <div>
+            <div class="agenda-name">Shocking Predictions</div>
+            <div class="agenda-desc">Bold, unconventional calls that challenge the consensus.</div>
+          </div>
+          <span class="agenda-tag tag-bold">Predictions</span>
+        </div>
+
       </div>
     </div>
   </section>
